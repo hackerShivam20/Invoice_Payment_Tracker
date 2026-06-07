@@ -6,6 +6,7 @@ import morgan from "morgan";
 import rateLimit from "express-rate-limit";
 import authRoutes from "./routes/auth.routes.js";
 import clientRoutes from "./routes/client.routes.js";
+import invoiceRoutes from "./routes/invoice.routes.js";
 
 const app = express();
 
@@ -75,6 +76,7 @@ if (process.env.NODE_ENV === "development") {
 // This is how Stripe, Twilio, and every major API does it.
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/clients", clientRoutes);
+app.use("/api/v1/invoices", invoiceRoutes);
 // ─── HEALTH CHECK ─────────────────────────────────────────────────────────────
 // WHY: Render/Railway/Docker health checks ping this route to verify
 // the server is alive. If it returns 200, the platform keeps traffic flowing.

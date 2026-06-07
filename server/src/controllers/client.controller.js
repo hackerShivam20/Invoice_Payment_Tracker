@@ -3,6 +3,7 @@ import { Client } from "../models/Client.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { Invoice } from "../models/Invoice.model.js";
 
 // ─── CREATE CLIENT ────────────────────────────────────────────────────────────
 export const createClient = asyncHandler(async (req, res) => {
@@ -257,7 +258,8 @@ export const deleteClient = asyncHandler(async (req, res) => {
   // Business rule: prevent deletion if client has unpaid invoices.
   // WHY: Deleting a client with open invoices creates orphaned financial records.
   // Force the user to resolve invoices first (cancel or mark paid).
-  const Invoice = mongoose.model("Invoice");
+  
+  // const Invoice = mongoose.model("Invoice");
   const activeInvoices = await Invoice.countDocuments({
     client: id,
     status: { $in: ["draft", "sent", "partial", "overdue"] },
