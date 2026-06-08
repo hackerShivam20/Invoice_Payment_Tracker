@@ -7,6 +7,7 @@ import rateLimit from "express-rate-limit";
 import authRoutes from "./routes/auth.routes.js";
 import clientRoutes from "./routes/client.routes.js";
 import invoiceRoutes from "./routes/invoice.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 
 const app = express();
 
@@ -77,6 +78,7 @@ if (process.env.NODE_ENV === "development") {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/clients", clientRoutes);
 app.use("/api/v1/invoices", invoiceRoutes);
+app.use("/api/v1/payments", paymentRoutes);
 // ─── HEALTH CHECK ─────────────────────────────────────────────────────────────
 // WHY: Render/Railway/Docker health checks ping this route to verify
 // the server is alive. If it returns 200, the platform keeps traffic flowing.
